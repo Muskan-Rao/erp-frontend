@@ -1,0 +1,49 @@
+.entry_page {
+    height: 100vh;
+    background-color: rgb(80, 152, 210);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Jumbo {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    box-shadow: 0px 0px 15px -5px black;
+}
+
+.submit {
+    background-color: blue;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border-color: white;
+    font-size: large;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.text-info {
+    color: rgb(80, 152, 210);
+    font-size: 3rem;
+    /* text-shadow: 100px black; */
+}
+
+.email {
+    font-size: large;
+}
+
+.password {
+    font-size: large;
+}
+
+.label {
+    font-size: large;
+    font-weight: bold;
+    color: rgb(80, 152, 210);
+}
