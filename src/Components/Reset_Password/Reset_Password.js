@@ -1,48 +1,68 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { sendPasswordResetOtp } from "./passwordAction";
 
-export const ResetPassword = ({handleOnChange, handleOnResetSubmit, formSwitcher, email}) => {
-  return (
-    <Container>
-        <Row>
-            <Col>
-            <h1 className='text-info text-center'>Reset Password</h1>
-            <hr/><br/>
-            <Form autoComplete='off' onSubmit={handleOnResetSubmit}>
-                <Form.Group>
-                    <Form.Label className='label'>Email Address</Form.Label>
-                    <br/>
-                    <Form.Control
-                    onChange={handleOnChange}
-                    className='email'
-                    type="email"
-                    name="email"
-                    value={email}
-                    placeholder='Enter Email'
-                    required
-                    />
-                </Form.Group>
-                <br/>
-                <Button className='submit' type='submit'>Reset Password</Button>
-            </Form>
-            <br/>
-            </Col>
-        </Row>
+import {
+	Container,
+	Row,
+	Col,
+	Form,
+	Button,
+	Alert,
+	Spinner,
+} from "react-bootstrap";
 
-        <Row>
-            <Col>
-                <a href='#!' onClick={() => formSwitcher('Login')}>Login</a>
-            </Col>
-        </Row>
-    </Container>
-  );
-};
+export const ResetPassword = () => {
+	const dispatch = useDispatch();
 
-ResetPassword.PropTypes = {
-    handleOnChange: PropTypes.func.isRequired,
-    handleOnResetSubmit: PropTypes.func.isRequired,
-    formSwitcher: PropTypes.func.isRequired,
-    email: PropTypes.string.isRequired,
-    // password: PropTypes.string.isRequired
+	const [email, setEmail] = useState("");
+
+	const { isLoading, status, message } = useSelector(state => state.password);
+
+	const handleOnResetSubmit = e => {
+		e.preventDefault();
+
+		dispatch(sendPasswordResetOtp(email));
+	};
+
+	const handleOnChange = e => {
+		const { value } = e.target;
+		setEmail(value);
+	};
+
+	return (
+		<Container>
+			<Row>
+				<Col>
+					<h1 className="text-info text-center">Reset Password</h1>
+					<hr />
+
+					{message && (
+						<Alert variant={status === "success" ? "success" : "danger"}>
+							{message}
+						</Alert>
+					)}
+
+					{isLoading && <Spinner variant="primary" animation="border" />}
+
+					<Form autoComplete="off" onSubmit={handleOnResetSubmit}>
+						<Form.Group>
+							<Form.Label>Email Address</Form.Label>
+							<Form.Control
+								type="email"
+								name="email"
+								value={email}
+								onChange={handleOnChange}
+								placeholder="Enter Email"
+								required
+							/>
+						</Form.Group>
+
+						<Button type="submit">Reset Password</Button>
+					</Form>
+					<hr />
+				</Col>
+			</Row>
+		</Container>
+	);
 };

@@ -1,0 +1,15 @@
+.text-center {
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
+
+.ml-auto {
+    align-items: center;
+    align-content: center;
+    text-align: right;
+}
+
+.navbar {
+    background-color: white;
+} 
